@@ -66,7 +66,7 @@ public class Array {
     int removeLast()
     {  
         int remove = A[load-1];
-        A[load-1]=0;
+        A[load-1]=A[load];
         load--;
         return remove;
 
