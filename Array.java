@@ -51,7 +51,7 @@ public class Array {
     {return -1;}
     
     else{
-        for(int i = 0 ; i<load;i++){
+        for(int i = 0 ; i<load-1;i++){
                 A[i]=A[i+1];
         }
         load--;
