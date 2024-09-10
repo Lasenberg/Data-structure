@@ -66,8 +66,10 @@ public class Array {
     int removeLast()
     {  
         int remove = A[load-1];
-        removeAtIndex(load-1);
+        A[load-1]=0;
+        load--;
         return remove;
+
   }
 
 //      //Ex4 f
@@ -79,7 +81,7 @@ public class Array {
     {return -1;}
     
     else{
-        for(int i = index ; i<load;i++){
+        for(int i = index ; i<load-1;i++){
                 A[i]=A[i+1];
         }
         load--;
