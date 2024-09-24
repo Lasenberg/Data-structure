@@ -57,7 +57,7 @@ public class SList<T> {
 		   if(size==0){
 			  addFirst(element);
 		   }
-		   if(size>0){
+		   else{
 	  SNode<T> newNode = new SNode<T>(element);
 			   last.next = newNode;
 			   last = newNode;
@@ -77,8 +77,8 @@ public class SList<T> {
 	 */
 	void addAtIndex(int index, T element) {
 	 // Ex.1 b) complete the method
-		   if(index<0){return;}
-		   else if (index==0){
+		
+		   if (index<=0){
 			   addFirst(element);
 		   }
 		   else if(index>=size){
@@ -86,15 +86,15 @@ public class SList<T> {
 		   }
 		   else{
 			   SNode<T> current =first;
-	  SNode<T> newNode = new SNode<T>(element);
+		  SNode<T> newNode = new SNode<T>(element);
 	  
 			   for (int i = 0 ;i<index-1;i++){
 				   current =current.next;
 			   }
 	  
-	  newNode.next =current.next; 
-	  current.next =newNode;
-	  size++;
+	  			newNode.next =current.next; 
+	  			current.next =newNode;
+	 			 size++;
 		   }
 	   }
    
@@ -126,6 +126,15 @@ public class SList<T> {
 	 // Ex.2 complete the method
 	 if (size==0)
 	 {return null;}
+	//  if (size==1){
+	// 	SNode<T> tmp = first;
+	// 	tmp = first;
+	// 	first = null;
+	// 	last = null;
+	// 	size =0;
+	// 	return tmp.element;
+		
+	// }
 	 else{
 	  SNode<T> current = first;
 	  while(current.next!=last){
