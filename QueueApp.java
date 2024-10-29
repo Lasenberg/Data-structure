@@ -1,5 +1,3 @@
-import java.util.Queue;
-
 public class QueueApp {
 	/**
 	 * Checks if a given string represents an integer.
@@ -40,8 +38,8 @@ public class QueueApp {
 	 * @param x   The first operand as a string.
 	 * @param y   The second operand as a string.
 	 * @return The result of the binary operation as a string, or "can't be
-	 *         evaluated" if the operator is invalid or the operands are not valid
-	 *         integers.
+	 * evaluated" if the operator is invalid or the operands are not valid
+	 * integers.
 	 */
 	static String evalPrefixString(String opt, String x, String y) {
 		if (opt.equals("+"))
@@ -71,10 +69,62 @@ public class QueueApp {
 		}
 		// Exercise 4
 		// add your code here
-		return null;
+		String x, y, z;
+		Q.printHorizontal();
+
+		x = Q.dequeue();
+		y = Q.dequeue();
+		z = Q.dequeue();
+
+		String temp;
+
+		if (Q.isEmpty()) { // a prefix contains only three items
+			if (isPrefix(x, y, z) == true) {
+				return evalPrefixString(x, y, z);
+			}
+		}
+
+		else { //there are more items in the queue
+			do {
+				if (isPrefix(x, y, z) == true) {
+					temp = evalPrefixString(x, y, z);
+					Q.enqueue(temp);
+
+					if (!Q.isEmpty()) {
+						x = Q.dequeue();
+						y = Q.dequeue();
+						z = Q.dequeue();
+					}
+
+				}	
+				else { //the sequence of x y z doesn't form a prefix
+					Q.enqueue(x);
+					x = y;
+					y = z;
+					// if (!Q.isEmpty()) {
+						z = Q.dequeue();
+					// }
+				} 
+			}while (!Q.isEmpty());//Handle a special case, Q is empty but there are still numbers stored in x,y,z
+			while (!isPrefix(x, y, z)) {
+					Q.enqueue(x);
+					x = y;
+					y = z;
+					z = Q.dequeue();
+				}
+			temp = evalPrefixString(x, y, z);
+			Q.enqueue(temp);
+			
 	}
-	
-	/**
+		//Handle the last result
+		if (!Q.isEmpty()) {
+			return Q.dequeue(); //return the last result
+		} else {
+			return null;
+		}
+	}
+
+    /**
      * Simulates the "Hot Potato" game using a queue.
      *
      * @param children Array of children's names participating in the game.
@@ -83,23 +133,27 @@ public class QueueApp {
      */
 
     public static String playHotPotato(String[] children, int passes) {
-        Queue<String> queue = new Queue<>();
+        Queue<String> queue = new Queue<String>();
 
         
         for (String child : children) {
 			// Exercise 5
             //Complete the code, Add children to the queue
-			
+            queue.enqueue(child);
         }
 
-        while (queue.getSize() > 1) {
+        while (queue.list.size > 1) {
             // Pass the potato the specified number of times
-            for (/*Complete the code */) {
+            for (int i = 0; i < passes; i++) {
                 /* Remove child from front and add to rear (simulate passing)*/;
+                String currentChild = queue.dequeue();
+                queue.enqueue(currentChild);
             }
+            queue.dequeue(); // This child is out of the game
             /* Remove child holding the potato after specified passes */;
         }
-        /*Return the winner*/;
+        /*Return the winner*/
+        return queue.dequeue();
     }
 
 }
